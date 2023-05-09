@@ -15,6 +15,11 @@ listeners(); //Aqui la funcion listeners se manda llamar
 function listeners() {
   listaCursos.addEventListener("click", agregarAlCarrito); //Aqui la funcion agregarAlCarrito se manda llama
   carrito.addEventListener("click", removeCurso); //Eliminar cursos del carrito
+  document.addEventListener("DOMContentLoaded", () => {
+    //A carroAcc asignale el resultado de getITem
+    carroAcc = JSON.parse(localStorage.getItem("savedCourses")) || [];
+    carritoHTML();
+  });
   btnVaciar.addEventListener("click", () => {
     carroAcc = [];
     limpiarHTML();
@@ -110,6 +115,12 @@ function carritoHTML() {
 
     contenedorCarrito.appendChild(row); //agrega el HTML DEl carrito en el tbody con appendChild
   });
+  saveStorage();
+}
+
+function saveStorage() {
+  //JSON.stringify: para convertir el objeto a strings, sino marca puro object object
+  localStorage.setItem("savedCourses", JSON.stringify(carroAcc));
 }
 
 function limpiarHTML() {
